@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
@@ -12,47 +12,28 @@ import {
   Col
 } from 'react-bootstrap';
 
-import { getMe } from '../utils/API';
+// import { getMe } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
-
-
+// Displays a list of books saved by the user.
 const SavedBooks = () => {
+  // The useQuery hook is used to bind the GET_ME query to this component.
+  // GET_ME query fetches the user's data.
+  // The loading and data variables are returned from the useQuery hook.
+  // loading is a boolean that indicates whether the query is still in progress.
+  // data is the data returned from the query
   const { loading, data } = useQuery(GET_ME);
   // const [userData, setUserData] = useState({});
+  // The mutation hook is used to bind the REMOVE_BOOK mutation to this component.
+  // REMOVE_BOOK mutation removes a book.
   const [deleteBook, { error }] = useMutation(REMOVE_BOOK);
+  // userData is derived from data and represents the current user's data.
   const userData = data?.me || {};
 
-  // // use this to determine if `useQuery()` hook needs to run again
-  // const userDataLength = Object.keys(userData).length;
-
-  // useQuery(() => {
-  //   const getUserData = async () => {
-  //     try {
-  //       const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-  //       if (!token) {
-  //         return false;
-  //       }
-
-  //       const response = await getMe(token);
-
-  //       if (!response.ok) {
-  //         throw new Error('something went wrong!');
-  //       }
-
-  //       const user = await response.json();
-  //       setUserData(user);
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   getUserData();
-  // }, [userDataLength]);
-
-  // create function that accepts the book's mongo _id value as param and deletes the book from the database
+  // Create function that accepts the book's mongo _id value as param and deletes the book from the database
+  // It gets the authentication token, checks if the user is authenticated, and then sends a REMOVE_BOOK mutation request to remove the book.
+  // If the request is successful, it removes the book's ID from local storage.
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -78,11 +59,11 @@ const SavedBooks = () => {
 
   return (
     <>
-      <div fluid className="text-light bg-dark p-5">
+      <Container fluid className="text-light bg-dark p-5">
         <Container>
           <h1>Viewing saved books!</h1>
         </Container>
-      </div>
+      </Container>
       <Container>
         <h2 className='pt-5'>
           {userData.savedBooks.length
@@ -92,7 +73,7 @@ const SavedBooks = () => {
         <Row>
           {userData.savedBooks.map((book) => {
             return (
-              <Col md="4">
+              <Col md="4" key={book.bookId}>
                 <Card key={book.bookId} border='dark'>
                   {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
                   <Card.Body>

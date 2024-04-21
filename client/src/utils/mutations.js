@@ -31,7 +31,7 @@ mutation addUser($username: String!, $email: String!, $password: String!) {
 `;
 
 // Add a book to a user's saved books.
-// BookInput as input parameter.
+// input as input parameter.
 // If the book is successfully saved, it returns the user's details (username, email, bookCount) and the list of saved books.
 export const SAVE_BOOK = gql`
 mutation saveBook($input: BookInput!) {

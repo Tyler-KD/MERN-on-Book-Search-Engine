@@ -1,3 +1,6 @@
+// typeDefs defines the GraphQL schema, which is the shape of the data graph.
+// It outlines the types of data your API can return and the operations (queries and mutations) it supports.
+
 const typeDefs = `
 type User {
     _id: ID

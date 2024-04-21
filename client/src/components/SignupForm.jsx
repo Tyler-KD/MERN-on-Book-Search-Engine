@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
 import { useMutation } from '@apollo/client';
@@ -7,6 +7,7 @@ import { ADD_USER } from '../utils/mutations';
 // import { createUser } from '../utils/API';
 import Auth from '../utils/auth';
 
+// Component for a Sign Up form
 const SignupForm = () => {
   
   // set initial form state
@@ -15,14 +16,19 @@ const SignupForm = () => {
   const [validated] = useState(false);
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
-
+  // This hook from Apollo Client is used to execute the ADD_USER mutation.
+  // The addUser function returned by the hook is used to send the mutation request.
   const [ addUser, { error }] = useMutation(ADD_USER);
-  
+  // This function updates userFormData whenever the user types into the form.
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
-
+  // This function is called when the user submits the form.
+  // It first prevents the default form submission behavior, then checks if the form is valid.
+  // If the form is valid, it attempts to execute the addUser mutation with the data from the form.
+  // If the mutation is successful, the user is logged in.  
+  // If an error occurs, an alert is shown.
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 

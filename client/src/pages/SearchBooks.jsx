@@ -14,6 +14,7 @@ import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
 import { SAVE_BOOK } from '../utils/mutations';
 
+// Allows users to search for books via the Google Books API and save them for later viewing.
 const SearchBooks = () => {
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);

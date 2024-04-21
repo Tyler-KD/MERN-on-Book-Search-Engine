@@ -37,10 +37,12 @@ const client = new ApolloClient({
 function App() {
   return (
 
+    // ApolloProvider wraps the application and places the client on the context, which allows access to it from anywhere in the component tree.
     <ApolloProvider client={client}>
       <>
         <Navbar />
-        <Outlet />
+        {/* The Outlet component is a placeholder that renders the matched route's component */}
+        <Outlet /> 
       </>
     </ApolloProvider>
   );

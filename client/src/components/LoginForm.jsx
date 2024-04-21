@@ -7,18 +7,28 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
-const LoginForm = () => {
-  const [ loginUser, { error }] = useMutation(LOGIN_USER);
 
+// Component for logging in a user
+const LoginForm = () => {
+  // A mutation function returned by useMutation that will be used to execute the LOGIN_USER mutation.
+  const [ loginUser, { error }] = useMutation(LOGIN_USER);
+  // An object that stores the user's email and password.
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  // A boolean that indicates whether the form has been validated.
   const [validated] = useState(false);
+  // A boolean that controls the visibility of an alert message.
   const [showAlert, setShowAlert] = useState(false);
 
+  // This function updates userFormData when the user types into the form fields
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+  // This function is called when the user submits the form.
+  // It prevents the default form submission, checks if the form is valid, and then attempts to log in the user using the loginUser mutation.
+  // If the login is successful, the user is authenticated using Auth.login.
+  // If there's an error, an alert is shown.
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -32,7 +42,6 @@ const LoginForm = () => {
     try {
       const { data } = await loginUser({ variables: { ...userFormData }, } );
 
-      
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);
