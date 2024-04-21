@@ -16,10 +16,12 @@ import { getMe } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
-const [deleteBook, { error }] = useMutation(REMOVE_BOOK);
+
 
 const SavedBooks = () => {
+  const { loading, data } = useQuery(GET_ME);
   const [userData, setUserData] = useState({});
+  const [deleteBook, { error }] = useMutation(REMOVE_BOOK);
 
   // use this to determine if `useQuery()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
