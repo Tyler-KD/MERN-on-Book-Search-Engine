@@ -10,6 +10,12 @@ const AppNavbar = () => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
 
+  // create function to handle logging out and clear local storage
+  const handleLogout = () => {
+    localStorage.clear(); // clear local storage
+    Auth.logout(); // log the user out
+  };
+
   return (
     <>
       <Navbar bg='dark' variant='dark' expand='lg'>
@@ -29,7 +35,8 @@ const AppNavbar = () => {
                   <Nav.Link as={Link} to='/saved'>
                     See Your Books
                   </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                  {/* use handleLogout here */}
+                  <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </>
               ) : (
                 <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>

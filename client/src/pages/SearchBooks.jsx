@@ -10,7 +10,7 @@ import {
 } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { searchGoogleBooks } from '../utils/API';
+// import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 import { useMutation } from '@apollo/client';
 import { SAVE_BOOK } from '../utils/mutations';
@@ -44,7 +44,10 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await searchGoogleBooks(searchInput);
+      // make a search to google books api
+      const response = await fetch(
+        `https://www.googleapis.com/books/v1/volumes?q=${searchInput}`
+      );
 
       if (!response.ok) {
         throw new Error('something went wrong!');
@@ -137,12 +140,12 @@ const SearchBooks = () => {
                     <Card.Title>{book.title}</Card.Title>
                     <p className='small'>Authors: {book.authors}</p>
                     <Card.Text>{book.description}</Card.Text>
-                    <Row>
-                      <Col>
+                    <Row className='justify-content-center'>
+                      <Col className='d-flex align-items-center justify-content-center'>
                         <Button target='_blank' rel='noreferrer' href={book.link} className='btn-block'>Link</Button>
                       </Col>
                       {Auth.loggedIn() && (
-                        <Col>
+                        <Col className='d-flex align-items-center'>
                           <Button
                             disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
                             className='btn-block btn-info'

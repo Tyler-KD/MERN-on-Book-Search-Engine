@@ -81,11 +81,11 @@ const SavedBooks = () => {
                     <Card.Title>{book.title}</Card.Title>
                     <p className='small'>Authors: {book.authors}</p>
                     <Card.Text>{book.description}</Card.Text>
-                    <Row>
-                      <Col>
+                    <Row className='justify-content-center'>
+                      <Col className='d-flex align-items-center justify-content-center'>
                         <Button target='_blank' rel='noreferrer' href={book.link} className='btn-block'>Link</Button>
                       </Col>
-                      <Col>
+                      <Col className='d-flex align-items-center justify-content'>
                         <Button className='btn-block btn-danger' onClick={() => handleDeleteBook(book.bookId)}>
                           Delete this Book!
                         </Button>
